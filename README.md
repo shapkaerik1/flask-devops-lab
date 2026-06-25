@@ -1,14 +1,14 @@
-# Flask DevOps Lab - Version A
+# Flask DevOps Lab
 
 ## Usage
 
 Activate the virtual environment, install requirements, and run the app:
 
-```bash
+\`\`\`bash
 source .venv/bin/activate
 pip install -r requirements.txt
 python app.py
-```
+\`\`\`
 
 ## API Routes
 
