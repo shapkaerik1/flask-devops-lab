@@ -48,3 +48,13 @@ if __name__ == '__main__':
         port=int(os.environ.get('PORT', 8080)),
         debug=True
     )
+
+request_count = 0
+
+@app.get('/api/metrics')
+def metrics():
+    return jsonify({
+        'memory_usage_mb': 'N/A',
+        'request_count': request_count,
+        'timestamp': round(time.time(), 2)
+    })
