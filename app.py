@@ -28,6 +28,26 @@ def report():
         'uptime_seconds': round(time.time() - START_TIME, 2)
     })
 
+@app.get('/api/status')
+def status():
+    cfg = load_config()
+    routes = sorted(str(rule) for rule in app.url_map.iter_rules())
+    return jsonify({
+        'app_name': cfg['app_name'],
+        'version': cfg['version'],
+        'routes': routes
+    })
+
+request_count = 0
+
+@app.get('/api/metrics')
+def metrics():
+    return jsonify({
+        'memory_usage_mb': 'N/A',
+        'request_count': request_count,
+        'timestamp': round(time.time(), 2)
+    })
+
 @app.get('/')
 def home():
     cfg = load_config()
@@ -48,13 +68,3 @@ if __name__ == '__main__':
         port=int(os.environ.get('PORT', 8080)),
         debug=True
     )
-
-request_count = 0
-
-@app.get('/api/metrics')
-def metrics():
-    return jsonify({
-        'memory_usage_mb': 'N/A',
-        'request_count': request_count,
-        'timestamp': round(time.time(), 2)
-    })
